@@ -1,0 +1,10 @@
+[rewrite local]
+https://*.caixin.com(\/articlev*|\/audioV1\/*|\/api\/ucenter\/appapi\/v1\/userinfo|\/expert.course\/course\/reserveapi\/*) url script-response-body https://gist.githubusercontent.com/youyou752/48d75076c0cb3c754d85353aa5ca76f0/raw/25cc139cbf8472648c9671a3f5b3a0f6b9c822ec/cx.js
+
+
+body = $response.body.replace(/var isPay = document/g, 'var isPay = 1;  #').replace(/var articleProperties/g, 'var articleProperties2')replace(/nickname\":\".*?\"/g, 'nickname\":\"已解锁\"')replace(/isFree\":\\d/g, 'isFree\":0')replace(/aType\":\\d/g, 'aType\":0').replace(/feeType\":\\d/g, 'feeType\":0');
+$done({body});
+
+
+[mitm]
+Hostname = *.caixin.com
